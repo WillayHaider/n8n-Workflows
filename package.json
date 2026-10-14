@@ -1,0 +1,17 @@
+﻿{
+  "name": "n8n-workflows",
+  "version": "1.0.0",
+  "description": "Local n8n automation workspace, workflow backups, and integrations",
+  "private": true,
+  "scripts": {
+    "start": "npx n8n",
+    "tunnel": "npx n8n --tunnel"
+  },
+  "keywords": [
+    "n8n",
+    "automation",
+    "workflows"
+  ],
+  "author": "Willay Haider",
+  "license": "MIT"
+}

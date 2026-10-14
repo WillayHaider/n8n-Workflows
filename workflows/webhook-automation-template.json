@@ -1,0 +1,103 @@
+﻿{
+  "name": "Webhook Automation Template",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "automation-trigger",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "1e813f56-6f77-4f27-a068-d069da5b3401",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        260,
+        300
+      ],
+      "webhookId": "custom-automation-trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f5127278-5e72-4bd5-a12e-ec5f013d50f8",
+              "name": "payload",
+              "value": "={{ $json.body }}",
+              "type": "object"
+            },
+            {
+              "id": "b319aa51-b0db-402f-b4ff-2e6fb1c4de42",
+              "name": "received_at",
+              "value": "={{ $now.toISO() }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "59cb315e-4731-41d3-aeb0-fa0d65b839b2",
+      "name": "Format Payload",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        480,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"status\": \"success\",\n  \"message\": \"Automation executed successfully!\",\n  \"timestamp\": \"{{ $now.toISO() }}\"\n}",
+        "options": {
+          "responseCode": 200
+        }
+      },
+      "id": "cfa53ee1-24db-40a1-a67b-11756540b6e1",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        700,
+        300
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          {
+            "node": "Format Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Payload": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f74d016c-0e86-4444-9fb5-752179b5c2a1",
+  "id": "automation-template",
+  "meta": {
+    "instanceId": "local-dev"
+  },
+  "tags": []
+}

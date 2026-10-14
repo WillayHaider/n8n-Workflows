@@ -1,0 +1,14 @@
+﻿# n8n local runtime files, database, and encryption keys
+.n8n/
+*.sqlite
+*.sqlite3
+*.log
+
+# Sensitive credentials & environment variables
+.env
+.env.local
+credentials.json
+
+# Node modules
+node_modules/
+npm-debug.log*
